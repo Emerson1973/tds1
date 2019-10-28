@@ -32,7 +32,7 @@ namespace BDStored
         {
             try
             {
-                String str = "Data Source=senaiaula.database.windows.net;Initial Catalog=aula;Persist Security Info=True;User ID=emerson;Password=@maral1973";
+                String str = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Programas\\BDStored\\BDStored\\DataStored.mdf;Integrated Security=True";
                 String query = "select * from cliente";
                 SqlConnection con = new SqlConnection(str);
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -69,6 +69,12 @@ namespace BDStored
         {
             FrmVenda ven = new FrmVenda();
             ven.Show();
+        }
+
+        private void cRUDUsuáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmUsuario usu = new FrmUsuario();
+            usu.Show();
         }
     }
 }

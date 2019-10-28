@@ -13,7 +13,7 @@ namespace BDStored
 {
     public partial class FrmVenda : Form
     {
-        SqlConnection con = new SqlConnection("Data Source=senaiaula.database.windows.net;Initial Catalog=aula;Persist Security Info=True;User ID=emerson;Password=@maral1973");
+        SqlConnection con = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Programas\\BDStored\\BDStored\\DataStored.mdf;Integrated Security=True");
         public FrmVenda()
         {
             InitializeComponent();
@@ -216,7 +216,10 @@ namespace BDStored
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@valor_pago", SqlDbType.Decimal).Value = Convert.ToDecimal(TxtValorTotal.Text);
             cmd.Parameters.AddWithValue("@id_pessoa", SqlDbType.NChar).Value = CbxCliente.SelectedValue;
-            int idvenda = (int)cmd.ExecuteScalar();
+            cmd.ExecuteNonQuery();
+            string idvenda = "SELECT IDENT_CURRENT('tb_venda') AS id_venda";
+            SqlCommand cmdvenda = new SqlCommand(idvenda, con);
+            Int32 idvenda2 = Convert.ToInt32(cmdvenda.ExecuteScalar());
             foreach (DataGridViewRow dr in DgvVenda.Rows)
             {
                 SqlCommand cmditens = new SqlCommand("InserirItens", con);
@@ -227,7 +230,7 @@ namespace BDStored
                 cmditemvenda.Parameters.AddWithValue("@id_produto2", SqlDbType.Int).Value = Convert.ToInt32(dr.Cells[0].Value);
                 cmditens.Parameters.AddWithValue("@quantidade", SqlDbType.Int).Value = Convert.ToInt32(dr.Cells[2].Value);
                 cmditens.Parameters.AddWithValue("@id_produto", SqlDbType.Int).Value = Convert.ToInt32(dr.Cells[0].Value);
-                cmditens.Parameters.AddWithValue("@id_venda", SqlDbType.Int).Value = idvenda;
+                cmditens.Parameters.AddWithValue("@id_venda", SqlDbType.Int).Value = idvenda2;
                 cmditens.Parameters.AddWithValue("@valor", SqlDbType.Decimal).Value = Convert.ToDecimal(dr.Cells[3].Value);
                 cmditens.Parameters.AddWithValue("@valor_total", SqlDbType.Decimal).Value = Convert.ToDecimal(dr.Cells[4].Value);
                 if (con.State == ConnectionState.Open)
@@ -242,9 +245,9 @@ namespace BDStored
             DialogResult venda = MessageBox.Show("Venda realizada com sucesso! Deseja imprimir a nota?", "Venda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if(venda == DialogResult.Yes)
             {
-                this.Close();
-                FrmNotaVenda2 ven = new FrmNotaVenda2();
-                ven.Show();
+                //this.Close();
+                //FrmNotaVenda2 ven = new FrmNotaVenda2();
+                //ven.Show();
             }
             else if(venda == DialogResult.No)
             {
@@ -253,6 +256,11 @@ namespace BDStored
         }
 
         private void TxtQuantidade_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

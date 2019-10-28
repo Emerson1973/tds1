@@ -114,8 +114,10 @@
             // 
             // txtCpf
             // 
+            this.txtCpf.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtCpf.Location = new System.Drawing.Point(62, 26);
             this.txtCpf.Name = "txtCpf";
+            this.txtCpf.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtCpf.Size = new System.Drawing.Size(134, 20);
             this.txtCpf.TabIndex = 13;
             // 

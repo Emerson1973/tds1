@@ -13,7 +13,7 @@ namespace BDStored
 {
     public partial class FrmCrud : Form
     {
-        SqlConnection con = new SqlConnection("Data Source=senaiaula.database.windows.net;Initial Catalog=aula;Persist Security Info=True;User ID=emerson;Password=@maral1973");
+        SqlConnection con = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Programas\\BDStored\\BDStored\\DataStored.mdf;Integrated Security=True");
         public FrmCrud()
         {
             InitializeComponent();
@@ -21,7 +21,7 @@ namespace BDStored
 
         public void CarregaDgv()
         {
-            String str = "Data Source=senaiaula.database.windows.net;Initial Catalog=aula;Persist Security Info=True;User ID=emerson;Password=@maral1973";
+            String str = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Programas\\BDStored\\BDStored\\DataStored.mdf;Integrated Security=True";
             String query = "select * from cliente";
             SqlConnection con = new SqlConnection(str);
             SqlCommand cmd = new SqlCommand(query, con);
